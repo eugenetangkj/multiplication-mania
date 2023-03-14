@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Source Code Pro', monospace;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: sans-serif;
+    margin: auto;
+    height: 90vh;
+    width: 90vw;
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+}
+
+#introduction {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 3vh;
+}
+
+button {
+    margin: 5%;
+    padding: 2%;
+    font-family: 'Source Code Pro', monospace;
+    background-color: black;
+    color: white;
+    border: 2px solid #AF7DFF;
+    font-size: 2vh;
+    cursor: pointer;
+    transition-duration: 0.4s
+}
+
+button:hover {
+    background-color: #AF7DFF;
+    color: black;
+}
+
+
+
+input {
+    padding-top: 5%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+
+#problem {
+    font-size: 8vh;
+    font-family: 'Source Code Pro', monospace;
+}
+
+input {
+    background-color: black;
+    color: white;
+    border: 2px solid #AF7DFF;
+    font-size: 3vh;
+    font-family: 'Source Code Pro', monospace;
+}
+
+
+
+.incorrect {
+    color: red;
+}
+
+#winner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vh;
+    font-family: 'Source Code Pro', monospace;
+    color: #7DFFA2;
+}
+
+img {
+    padding-top: 10%;
+    padding-bottom: 10%;
+    width: 40%;
+    height: 80%;
+}
+
+#score {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 3vh;
+}

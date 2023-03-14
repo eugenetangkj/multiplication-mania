@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <title>Multiplication Crystal</title>
+        <link rel="icon" type="image/x-icon" href="crystal.png">
+    </head>
+    <body>
+        <div id="app"></div>
+
+        <script type="text/babel">
+            function App() {
+                
+                const [state, setState] = React.useState({
+                    num1: 1,
+                    num2: 2,
+                    response: "",
+                    inFocus: true,
+                    score: -1,
+                    incorrect: false
+                });
+
+                //Adapted from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+                function getRandomInt(min, max) {
+                    min = Math.ceil(min);
+                    max = Math.floor(max);
+                    return Math.floor(Math.random() * (max - min) + min);
+                }
+
+                function startTrial(event) {
+                    setState({
+                            ...state,
+                            num1: getRandomInt(0, 13),
+                            num2: getRandomInt(0, 13),
+                            score: 0,
+                            response: "",
+                        });
+                }
+
+                function restartTrial(event) {
+                    setState({
+                            ...state,
+                            num1: getRandomInt(0, 13),
+                            num2: getRandomInt(0, 13),
+                            score: -1,
+                            response: "",
+                        });
+                }
+
+
+
+                function inputKeyPress(event) {
+                    if (event.key === "Enter") {
+                        const answer = parseInt(state.response);
+                        if (state.num1 * state.num2 === answer) {
+                            //Case 1: Correct answer
+                            setState({
+                                num1: getRandomInt(0, 13),
+                                num2: getRandomInt(0, 13),
+                                score: state.score + 1,
+                                response: "",
+                                incorrect: false
+                            });
+
+
+
+                        } else if (state.score > 0) {
+                            //Case 2: Wrong answer and can deduct marks
+                            setState({
+                                ...state,
+                                score: state.score - 1,
+                                response: "",
+                                incorrect: true
+                            });
+                        } else {
+                            //Case 3: Wrong answer and cannot deduct marks
+                            setState({
+                                ...state,
+                                response: "",
+                                incorrect: true
+                            });
+                        }
+                    }
+                }
+
+
+
+                function updateResponse(event) {
+                    setState({
+                        ...state,
+                        response: event.target.value //gets the content that the user type in
+                    });
+                }
+
+
+
+                //Introduction page
+                if (state.score < 0) {
+                    return (
+                        <div>
+                            <div id="introduction">Can you obtain the Multiplication Crystal?</div>
+                            <button type="button" onClick={startTrial}>Begin Trial</button>
+                        </div>
+                    );
+                }
+
+                //Winner page
+                if (state.score === 10) {
+                    return (
+                        <div id="winner">
+                            Congrats. You have won the Multiplication Crystal.
+                            <img src="multiplication-crystal.png" alt="Multiplciation Crystal"></img>
+                            <button type="button" onClick={restartTrial}>Start Again</button>
+                        </div>
+                    )
+                }
+
+                //Default page
+                return (
+                    <div>
+                        <div className={state.incorrect ? "incorrect" : ""} id="problem">{state.num1} x {state.num2}</div>
+                        <input className={state.inFocus ? "input-focus" : ""} autoFocus={true} onKeyPress={inputKeyPress} onChange={updateResponse} value={state.response} />
+                        <div id="score">Score: {state.score}</div>
+                    </div>
+                );
+            }
+
+            ReactDOM.render(<App />, document.querySelector("#app"));
+        </script>
+    </body>
+</html>
